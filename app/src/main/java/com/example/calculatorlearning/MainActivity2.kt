@@ -23,6 +23,8 @@ class MainActivity2 : AppCompatActivity() {
     private lateinit var num8: Button
     private lateinit var num9: Button
     private lateinit var dot: Button
+
+    //----------Operations-----------
     private lateinit var piButton: Button
     private lateinit var equal: Button
     private lateinit var plus: Button
@@ -32,9 +34,10 @@ class MainActivity2 : AppCompatActivity() {
     private lateinit var mod: Button
     private lateinit var backSpace: Button
     private lateinit var clearButton: Button
-
+    //-----------ViewText-----------------
     private lateinit var displayNum: TextView
     private lateinit var displayAns: TextView
+
     //-----------memoryList---------------
     private lateinit var memoryEquationList: ArrayList<String>
     private lateinit var memoryAnswerList: ArrayList<String>
@@ -61,7 +64,6 @@ class MainActivity2 : AppCompatActivity() {
         dot = findViewById(R.id.buttonDot)
         piButton = findViewById(R.id.buttonPI)
 
-        equal = findViewById(R.id.buttonEqual)
         plus = findViewById(R.id.buttonAdd)
         minus = findViewById(R.id.buttonSubtact)
         multip = findViewById(R.id.buttonMultiply)
@@ -69,9 +71,9 @@ class MainActivity2 : AppCompatActivity() {
         mod = findViewById(R.id.buttonPercent)
         backSpace = findViewById(R.id.backSpace)
         clearButton = findViewById(R.id.buttonClear)
-
         displayAns = findViewById(R.id.textViewAnswer)
         displayNum = findViewById(R.id.textViewNumber)
+        equal = findViewById(R.id.buttonEqual)
 
         //--------getNum----------
 
@@ -125,14 +127,15 @@ class MainActivity2 : AppCompatActivity() {
 
         equal.setOnClickListener {
             var equation: String = havePi(displayNum.text.toString())
-            if (leadingOperation(equation)){
-                equation=equation.substring(0,equation.length-1)
+            if (leadingOperation(equation)) {
+                equation = equation.substring(0, equation.length - 1)
             }
             memoryEquationList.add(equation)
             val answer: String = Keval.eval(equation).toString()
             memoryAnswerList.add(answer)
             displayAns.text = answer
         }
+
     }
 
     private fun backSpace(equation: String) {
@@ -151,17 +154,17 @@ class MainActivity2 : AppCompatActivity() {
         return if (equation.isNotBlank()) {
             val lastChar: String = equation.last().toString()
             operationList.contains(lastChar)
-        }else{
+        } else {
             true
         }
 
     }
 
-    private fun havePi(equation: String):String {
-        var newEquation=equation
-        for (char in equation){
-            if (char == 'π'){
-                newEquation=equation.replace("π",Math.PI.toString())
+    private fun havePi(equation: String): String {
+        var newEquation = equation
+        for (char in equation) {
+            if (char == 'π') {
+                newEquation = equation.replace("π", Math.PI.toString())
             }
         }
         return newEquation

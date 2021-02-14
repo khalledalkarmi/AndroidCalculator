@@ -19,4 +19,9 @@
     <string name="_1">1</string>
     <string name="PI">π</string>
     <string name="_9">9</string>
+    <string name="sin_x">sin(x)</string>
+    <string name="cos_x">cos(x)</string>
+    <string name="tan_x">tan(x)</string>
+    <string name="x_2">X^2</string>
+    <string name="ans">Ans</string>
 </resources>
