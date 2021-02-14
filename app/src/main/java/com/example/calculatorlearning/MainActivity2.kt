@@ -8,7 +8,6 @@ import com.notkamui.keval.Keval
 
 /*
 todo: add memoryView
-todo: fix PI
 todo: fix double float point in equation
  */
 class MainActivity2 : AppCompatActivity() {
@@ -24,8 +23,7 @@ class MainActivity2 : AppCompatActivity() {
     private lateinit var num8: Button
     private lateinit var num9: Button
     private lateinit var dot: Button
-    private lateinit var Pi: Button
-    private val pi:String=Math.PI.toString()
+    private lateinit var piButton: Button
     private lateinit var equal: Button
     private lateinit var plus: Button
     private lateinit var minus: Button
@@ -33,7 +31,7 @@ class MainActivity2 : AppCompatActivity() {
     private lateinit var divided: Button
     private lateinit var mod: Button
     private lateinit var backSpace: Button
-    private lateinit var AC: Button
+    private lateinit var clearButton: Button
 
     private lateinit var displayNum: TextView
     private lateinit var displayAns: TextView
@@ -61,7 +59,7 @@ class MainActivity2 : AppCompatActivity() {
         num8 = findViewById(R.id.button8)
         num9 = findViewById(R.id.button9)
         dot = findViewById(R.id.buttonDot)
-        Pi = findViewById(R.id.buttonPI)
+        piButton = findViewById(R.id.buttonPI)
 
         equal = findViewById(R.id.buttonEqual)
         plus = findViewById(R.id.buttonAdd)
@@ -70,10 +68,10 @@ class MainActivity2 : AppCompatActivity() {
         divided = findViewById(R.id.buttonDivide)
         mod = findViewById(R.id.buttonPercent)
         backSpace = findViewById(R.id.backSpace)
-        AC = findViewById(R.id.buttonClear)
+        clearButton = findViewById(R.id.buttonClear)
 
-        displayAns = findViewById(R.id.textviewnAnswer)
-        displayNum = findViewById(R.id.textviewNumber)
+        displayAns = findViewById(R.id.textViewAnswer)
+        displayNum = findViewById(R.id.textViewNumber)
 
         //--------getNum----------
 
@@ -88,7 +86,7 @@ class MainActivity2 : AppCompatActivity() {
         num8.setOnClickListener { displayNum.append("8") }
         num9.setOnClickListener { displayNum.append("9") }
         dot.setOnClickListener { displayNum.append(".") }
-        Pi.setOnClickListener { displayNum.append("π") }
+        piButton.setOnClickListener { displayNum.append("π") }
 
         //---------getOperation------------
         plus.setOnClickListener {
@@ -112,7 +110,7 @@ class MainActivity2 : AppCompatActivity() {
                 displayNum.append("%")
         }
 
-        AC.setOnClickListener {
+        clearButton.setOnClickListener {
             if (displayAns.text.isNotBlank()) {
                 memoryAnswerList.add(displayAns.text.toString())
             }
@@ -159,7 +157,7 @@ class MainActivity2 : AppCompatActivity() {
 
     }
 
-    fun havePi(equation: String):String {
+    private fun havePi(equation: String):String {
         var newEquation=equation
         for (char in equation){
             if (char == 'π'){

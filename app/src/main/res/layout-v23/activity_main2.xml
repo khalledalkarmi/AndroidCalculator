@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/textviewNumber"
+        android:id="@+id/textViewNumber"
         android:layout_width="360dp"
         android:layout_height="105dp"
         android:background="@drawable/text"
@@ -21,10 +21,10 @@
     </TextView>
 
     <TextView
-        android:id="@+id/textviewnAnswer"
+        android:id="@+id/textViewAnswer"
         android:layout_width="360dp"
         android:layout_height="105dp"
-        android:layout_below="@+id/textviewNumber"
+        android:layout_below="@+id/textViewNumber"
         android:background="@drawable/text"
         android:gravity="end"
         android:paddingTop="40dp"
@@ -39,7 +39,7 @@
         android:id="@+id/buttonClear"
         android:layout_width="88dp"
         android:layout_height="88dp"
-        android:layout_below="@+id/textviewnAnswer"
+        android:layout_below="@+id/textViewAnswer"
 
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
@@ -54,7 +54,7 @@
         android:id="@+id/backSpace"
         android:layout_width="88dp"
         android:layout_height="88dp"
-        android:layout_below="@+id/textviewnAnswer"
+        android:layout_below="@+id/textViewAnswer"
         android:layout_marginBottom="2dp"
         android:layout_toEndOf="@+id/buttonClear"
         android:background="@drawable/button"
@@ -70,7 +70,7 @@
         android:id="@+id/buttonPercent"
         android:layout_width="88dp"
         android:layout_height="88dp"
-        android:layout_below="@+id/textviewnAnswer"
+        android:layout_below="@+id/textViewAnswer"
         android:layout_marginStart="2dp"
         android:layout_marginBottom="2dp"
         android:layout_toEndOf="@+id/backSpace"
@@ -86,7 +86,7 @@
         android:id="@+id/buttonDivide"
         android:layout_width="90dp"
         android:layout_height="88dp"
-        android:layout_below="@+id/textviewnAnswer"
+        android:layout_below="@+id/textViewAnswer"
         android:layout_marginStart="2dp"
         android:layout_marginBottom="2dp"
         android:layout_toEndOf="@+id/buttonPercent"
