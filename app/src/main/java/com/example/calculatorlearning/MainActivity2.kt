@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.notkamui.keval.Keval
 /*
 todo: add memory
-todo: fix leading zero
 todo: fix leading operation
 todo: fix trailing zero in float number
 
@@ -38,9 +37,15 @@ class MainActivity2 : AppCompatActivity() {
 
     private lateinit var displayNum: TextView
     private lateinit var displayAns: TextView
+
+    private lateinit var memoryEquationList: ArrayList<String>
+    private lateinit var memoryAnswerList: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+
+        memoryEquationList= ArrayList()
+        memoryAnswerList= ArrayList()
 
         num0 = findViewById(R.id.button0)
         num1 = findViewById(R.id.button1)
@@ -88,18 +93,40 @@ class MainActivity2 : AppCompatActivity() {
         multip.setOnClickListener { displayNum.append("*") }
         divided.setOnClickListener { displayNum.append("/") }
         mod.setOnClickListener { displayNum.append("%") }
-        AC.setOnClickListener { displayNum.text="" }
-        backSpace.setOnClickListener {
-            //TODO: backspace method
 
+        AC.setOnClickListener {
+            if (displayAns.text.isNotBlank()) {
+                memoryAnswerList.add(displayAns.text.toString())
+            }
+            displayAns.text=""
+            displayNum.text=""
+
+        }
+
+        backSpace.setOnClickListener {
+               backSpace(displayNum.text.toString())
         }
 
         equal.setOnClickListener {
             val equation:String = displayNum.text.toString()
+            memoryEquationList.add(equation)
             val answer:String = Keval.eval(equation).toString()
+            memoryAnswerList.add(answer)
             displayAns.text=answer
         }
 
+    }
+
+    private fun backSpace(equation:String) {
+        if (equation.isNotBlank()) {
+            var newEquation: String = equation
+            newEquation = newEquation.substring(0, newEquation.length - 1)
+            if (memoryEquationList.isNotEmpty()) {
+                memoryEquationList.removeLast()
+            }
+            memoryEquationList.add(newEquation)
+            displayNum.text = newEquation
+        }
     }
 
 }
