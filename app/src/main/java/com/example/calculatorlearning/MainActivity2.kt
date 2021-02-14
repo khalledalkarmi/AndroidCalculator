@@ -8,6 +8,8 @@ import com.notkamui.keval.Keval
 
 /*
 todo: add memoryView
+todo: fix PI
+todo: fix double float point in equation
  */
 class MainActivity2 : AppCompatActivity() {
     //----------Numbers-------------
@@ -23,7 +25,7 @@ class MainActivity2 : AppCompatActivity() {
     private lateinit var num9: Button
     private lateinit var dot: Button
     private lateinit var Pi: Button
-
+    private val pi:String=Math.PI.toString()
     private lateinit var equal: Button
     private lateinit var plus: Button
     private lateinit var minus: Button
@@ -35,7 +37,7 @@ class MainActivity2 : AppCompatActivity() {
 
     private lateinit var displayNum: TextView
     private lateinit var displayAns: TextView
-
+    //-----------memoryList---------------
     private lateinit var memoryEquationList: ArrayList<String>
     private lateinit var memoryAnswerList: ArrayList<String>
     private lateinit var operationList: ArrayList<String>
@@ -124,7 +126,7 @@ class MainActivity2 : AppCompatActivity() {
         }
 
         equal.setOnClickListener {
-            var equation: String = displayNum.text.toString()
+            var equation: String = havePi(displayNum.text.toString())
             if (leadingOperation(equation)){
                 equation=equation.substring(0,equation.length-1)
             }
@@ -155,6 +157,16 @@ class MainActivity2 : AppCompatActivity() {
             true
         }
 
+    }
+
+    fun havePi(equation: String):String {
+        var newEquation=equation
+        for (char in equation){
+            if (char == 'π'){
+                newEquation=equation.replace("π",Math.PI.toString())
+            }
+        }
+        return newEquation
     }
 
 }
