@@ -5,11 +5,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.notkamui.keval.Keval
-/*
-todo: add memory
-todo: fix leading operation
-todo: fix trailing zero in float number
 
+/*
+todo: add memoryView
  */
 class MainActivity2 : AppCompatActivity() {
     //----------Numbers-------------
@@ -40,12 +38,15 @@ class MainActivity2 : AppCompatActivity() {
 
     private lateinit var memoryEquationList: ArrayList<String>
     private lateinit var memoryAnswerList: ArrayList<String>
+    private lateinit var operationList: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-        memoryEquationList= ArrayList()
-        memoryAnswerList= ArrayList()
+        operationList = arrayListOf("+", "-", "-", "*", "/", ".")
+
+        memoryEquationList = ArrayList()
+        memoryAnswerList = ArrayList()
 
         num0 = findViewById(R.id.button0)
         num1 = findViewById(R.id.button1)
@@ -58,7 +59,7 @@ class MainActivity2 : AppCompatActivity() {
         num8 = findViewById(R.id.button8)
         num9 = findViewById(R.id.button9)
         dot = findViewById(R.id.buttonDot)
-        Pi=findViewById(R.id.buttonPI)
+        Pi = findViewById(R.id.buttonPI)
 
         equal = findViewById(R.id.buttonEqual)
         plus = findViewById(R.id.buttonAdd)
@@ -88,36 +89,53 @@ class MainActivity2 : AppCompatActivity() {
         Pi.setOnClickListener { displayNum.append("π") }
 
         //---------getOperation------------
-        plus.setOnClickListener { displayNum.append("+") }
-        minus.setOnClickListener { displayNum.append("-") }
-        multip.setOnClickListener { displayNum.append("*") }
-        divided.setOnClickListener { displayNum.append("/") }
-        mod.setOnClickListener { displayNum.append("%") }
+        plus.setOnClickListener {
+            if (!leadingOperation(displayNum.text.toString()))
+                displayNum.append("+")
+        }
+        minus.setOnClickListener {
+            if (!leadingOperation(displayNum.text.toString()))
+                displayNum.append("-")
+        }
+        multip.setOnClickListener {
+            if (!leadingOperation(displayNum.text.toString()))
+                displayNum.append("*")
+        }
+        divided.setOnClickListener {
+            if (!leadingOperation(displayNum.text.toString()))
+                displayNum.append("/")
+        }
+        mod.setOnClickListener {
+            if (!leadingOperation(displayNum.text.toString()))
+                displayNum.append("%")
+        }
 
         AC.setOnClickListener {
             if (displayAns.text.isNotBlank()) {
                 memoryAnswerList.add(displayAns.text.toString())
             }
-            displayAns.text=""
-            displayNum.text=""
+            displayAns.text = ""
+            displayNum.text = ""
 
         }
 
         backSpace.setOnClickListener {
-               backSpace(displayNum.text.toString())
+            backSpace(displayNum.text.toString())
         }
 
         equal.setOnClickListener {
-            val equation:String = displayNum.text.toString()
+            var equation: String = displayNum.text.toString()
+            if (leadingOperation(equation)){
+                equation=equation.substring(0,equation.length-1)
+            }
             memoryEquationList.add(equation)
-            val answer:String = Keval.eval(equation).toString()
+            val answer: String = Keval.eval(equation).toString()
             memoryAnswerList.add(answer)
-            displayAns.text=answer
+            displayAns.text = answer
         }
-
     }
 
-    private fun backSpace(equation:String) {
+    private fun backSpace(equation: String) {
         if (equation.isNotBlank()) {
             var newEquation: String = equation
             newEquation = newEquation.substring(0, newEquation.length - 1)
@@ -127,6 +145,16 @@ class MainActivity2 : AppCompatActivity() {
             memoryEquationList.add(newEquation)
             displayNum.text = newEquation
         }
+    }
+
+    private fun leadingOperation(equation: String): Boolean {
+        return if (equation.isNotBlank()) {
+            val lastChar: String = equation.last().toString()
+            operationList.contains(lastChar)
+        }else{
+            true
+        }
+
     }
 
 }
